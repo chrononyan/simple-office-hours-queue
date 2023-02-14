@@ -39,6 +39,14 @@ const Layout = (props: LayoutProps) => {
         }
       });
     }
+
+	new Promise(resolve => {
+        configureAbly({
+          key: clientEnv.NEXT_PUBLIC_ABLY_CLIENT_API_KEY,
+          clientId: session?.user?.id ?? Math.random().toString(36).substring(7),
+        });
+        resolve(setIsAblyConnected(true));
+      }).catch(err => console.error(err));
   }, []);
 
   useEffect(() => {
@@ -56,14 +64,6 @@ const Layout = (props: LayoutProps) => {
       } else {
         setIsAuthorized(true);
       }
-
-      new Promise(resolve => {
-        configureAbly({
-          key: clientEnv.NEXT_PUBLIC_ABLY_CLIENT_API_KEY,
-          clientId: session?.user?.id,
-        });
-        resolve(setIsAblyConnected(true));
-      }).catch(err => console.error(err));
     }
   }, [session]);
 
@@ -77,7 +77,7 @@ const Layout = (props: LayoutProps) => {
       <Flex h='100%' direction='column'>
         <>
           <Navbar />
-          {!session && status !== 'loading' && <Landing />}
+          {!session && status !== 'loading' && <Landing isAblyConnected={isAblyConnected} />}
           {status === 'authenticated' && isAuthorized && <>{children}</>}
           {isAblyConnected && <ReceiveBroadcast />}
         </>

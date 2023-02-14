@@ -11,7 +11,7 @@ import {
   User,
   UserRole,
 } from '@prisma/client';
-import { router, protectedProcedure, protectedStaffProcedure, protectedNotStudentProcedure } from '../trpc';
+import { router, protectedProcedure, protectedStaffProcedure, protectedNotStudentProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
 import { TRPCClientError } from '@trpc/client';
 
@@ -610,7 +610,7 @@ export const ticketRouter = router({
       return ticketsWithNames[0];
     }),
 
-  getTicketsWithStatus: protectedProcedure
+  getTicketsWithStatus: publicProcedure
     .input(
       z.object({
         status: z.nativeEnum(TicketStatus),
