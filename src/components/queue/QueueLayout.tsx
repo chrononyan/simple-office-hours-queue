@@ -28,8 +28,8 @@ interface QueueLayoutProps {
 const QueueLayout = (props: QueueLayoutProps) => {
   const { personalQueue } = props;
   const { data: session } = useSession();
-  const userRole = session?.user?.role!;
-  const userId = session?.user?.id!;
+  const userRole = session?.user?.role ?? UserRole.STUDENT;
+  const userId = session?.user?.id ?? '';
 
   const [isQueueOpen, setIsQueueOpen] = useState<boolean>();
   const [isPendingStageEnabled, setIsPendingStageEnabled] = useState<boolean>();

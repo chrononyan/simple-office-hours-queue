@@ -1,23 +1,11 @@
 import { useState } from 'react';
-import {
-  Button,
-  Flex,
-  Heading,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  Spinner,
-  useColorModeValue,
-  useToast,
-} from '@chakra-ui/react';
+import { Button, Flex, Heading, Input, InputGroup, InputLeftAddon, Spinner, useToast } from '@chakra-ui/react';
 import { sanitizeString } from '../../utils/utils';
-import { DARK_GRAY_COLOR } from '../../utils/constants';
 import { trpc } from '../../utils/trpc';
 import Router from 'next/router';
 
 const CreatePersonalQueue = () => {
   const [queueName, setQueueName] = useState('');
-  const borderColor = useColorModeValue(DARK_GRAY_COLOR, 'white');
   const toast = useToast();
 
   // Redirect to personal queue if it already exists

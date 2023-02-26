@@ -13,13 +13,13 @@ interface CreateTicketProps {
  */
 const CreateTicket = (props: CreateTicketProps) => {
   const { siteSettings, personalQueue } = props;
-  const endOfForm: any = useRef<HTMLSpanElement>();
+  const endOfForm = useRef<HTMLSpanElement>();
 
   return (
     <Flex width='full' align='left' flexDir='column' p={4}>
       <Text fontSize='2xl' mb={5}>
         Welcome back. Create a ticket to get started or{' '}
-        <Button border='1px' borderRadius={8} pl='5px' pr='5px' onClick={() => endOfForm.current.scrollIntoView()}>
+        <Button border='1px' borderRadius={8} pl='5px' pr='5px' onClick={() => endOfForm?.current?.scrollIntoView()}>
           view the queue
         </Button>
       </Text>
@@ -27,7 +27,7 @@ const CreateTicket = (props: CreateTicketProps) => {
         personalQueue={personalQueue}
         arePublicTicketsEnabled={siteSettings.get(SiteSettings.ARE_PUBLIC_TICKETS_ENABLED) === SiteSettingsValues.TRUE}
       />
-      <span ref={endOfForm}></span> {/* Start of queue */}
+      <span ref={endOfForm as React.RefObject<HTMLSpanElement>}></span> {/* Start of queue */}
     </Flex>
   );
 };

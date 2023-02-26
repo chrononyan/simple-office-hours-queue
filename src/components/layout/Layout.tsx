@@ -9,7 +9,6 @@ import { configureAbly } from '@ably-labs/react-hooks';
 import { clientEnv } from '../../env/schema.mjs';
 import { UserRole } from '@prisma/client';
 import Router from 'next/router';
-import Image from 'next/image';
 
 interface LayoutProps {
   children: ReactNode;

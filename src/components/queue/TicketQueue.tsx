@@ -237,7 +237,7 @@ const TicketQueue = (props: TicketQueueProps) => {
             You have no tickets
           </Text>
         )}
-        {getMyTickets()?.map((ticket, idx) => (
+        {getMyTickets()?.map(ticket => (
           <TicketCard
             idx={getLocationOnQueue(ticket)}
             key={ticket.id}
