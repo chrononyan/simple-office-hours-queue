@@ -5,6 +5,7 @@ import { Flex, Spinner, Switch, Text, Tooltip, Radio, RadioGroup, Divider } from
 import useSiteSettings from '../../utils/hooks/useSiteSettings';
 import AdminList from './AdminList';
 import ImportUsersMethod from './ImportUsersMethod';
+import BasicLayout from '../queue/LocationMap';
 
 /**
  * Component which allows staff to edit site settings and locations/assignments
@@ -66,6 +67,10 @@ const AdminView = () => {
     <Flex ml={4} mr={4} mt={4} flexDirection='column'>
       <AdminList assignmentsOrLocationsProps={assignments} isAssignment={true} />
       <AdminList assignmentsOrLocationsProps={locations} isAssignment={false} />
+      <Text fontSize='3xl' fontWeight='semibold'>
+          Location Maps
+        </Text>
+      <BasicLayout items={5} name='Woz'></BasicLayout>
       <Flex direction='column' mt={10} mb={3}>
         <Text fontSize='3xl' fontWeight='semibold'>
           General Settings

@@ -22,6 +22,7 @@ import { PersonalQueue, TicketType } from '@prisma/client';
 import { STARTER_CONCEPTUAL_TICKET_DESCRIPTION, STARTER_DEBUGGING_TICKET_DESCRIPTION } from '../../utils/constants';
 import { getTicketUrl, uppercaseFirstLetter } from '../../utils/utils';
 import ConfirmPublicToggleModal from '../modals/ConfirmPublicToggleModal';
+import BasicLayout from './LocationMap';
 
 interface Assignment {
   id: number;
@@ -198,6 +199,10 @@ const CreateTicketForm = (props: CreateTicketFormProps) => {
             <FormLabel>Location</FormLabel>
             <Select value={location} onChange={val => setLocation(val ?? undefined)} options={locationOptions} />
           </FormControl>
+          {/* <FormControl mt={6}>
+            <FormLabel>Location Picker</FormLabel>
+            <BasicLayout></BasicLayout>
+          </FormControl> */}
           <FormControl mt={6} isRequired={isPublic}>
             <FormLabel>Briefly describe where you are</FormLabel>
             <Input

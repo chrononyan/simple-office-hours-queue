@@ -7,6 +7,8 @@ import { trpc } from '../utils/trpc';
 import { mode } from '@chakra-ui/theme-tools';
 import { DARK_GRAY_COLOR, DARK_MODE_COLOR } from '../utils/constants';
 import '../styles/globals.css';
+import '../components/queue/LocationStyling.css'
+import 'react-grid-layout/css/styles.css'
 
 // Make dark mode the default
 // const config = {
