@@ -20,25 +20,51 @@ export default class BasicLayout extends React.PureComponent {
 
   constructor(props) {
     super(props);
+    console.log('initial', JSON.parse(global.localStorage.getItem('rgl-basicmap') || {}));
     this.items = props.items;
     this.name = props.name;
     //const layout = this.generateLayout();
     this.state = { 
-      layout: _.map(new Array(this.props.items), function(item, i) {
-        return {
-          x: (i * 2) % 30,
-          y: Math.floor(i / 6), 
-          w: 2,
-          h: 2,
-          i: i.toString(),
-          resizeHandles: ['se', 'nw', 'sw']
-        };
-    }),
+      layout: this.generateLayout(),
+      // layout: _.map(new Array(this.props.items), function(item, i) {
+      //   return {
+      //     x: (i * 2) % 30,
+      //     y: Math.floor(i / 6), 
+      //     w: 2,
+      //     h: 2,
+      //     i: i.toString(),
+      //     resizeHandles: ['se', 'nw', 'sw']
+      //   };
+    //}),
     newCounter: this.items,
     createText: ''
     };
+    // this.originalLayout = this.getFromLS(this.name) || [];
+    // if (this.originalLayout !== []) {
+    //   this.setState({layout: this.originalLayout})
+    // }
     this.onAddItem = this.onAddItem.bind(this);
+    this.onLayoutChange = this.onLayoutChange.bind(this);
+    this.resetLayout = this.resetLayout.bind(this);
   }
+
+generateLayout() {
+  this.originalLayout = this.getFromLS(this.name) || [];
+  if (this.originalLayout.length > 0) {
+    return this.originalLayout;
+  }
+  else{
+    return _.map(new Array(this.props.items), function(item, i) {
+      return {
+        x: (i * 2) % 30,
+        y: Math.floor(i / 6), 
+        w: 2,
+        h: 2,
+        i: i.toString(),
+        resizeHandles: ['se', 'nw', 'sw']
+      };
+  })
+}}
 
 createElement(el) {
   const removeStyle = {
@@ -72,9 +98,16 @@ createElement(el) {
     });
   }
 
+  resetLayout() {
+    this.setState({
+      layout: []
+    });
+  }
+
   onLayoutChange(layout) {
     console.log('called');
     this.props.onLayoutChange(layout);
+    this.saveToLS(this.name, layout)
     this.setState({layout: layout});
   }
 
@@ -91,6 +124,7 @@ createElement(el) {
       // Increment the counter to ensure key is always unique
     newCounter : this.state.newCounter + 1
     });
+    this.onLayoutChange = this.onLayoutChange.bind(this);
     console.log(this.state.layout);
   }
 
@@ -120,5 +154,30 @@ createElement(el) {
       </Flex>
       </div>
     );
+  }
+
+  getFromLS(key) {
+    let ls = {};
+    if (global.localStorage) {
+      try {
+        ls = JSON.parse(global.localStorage.getItem('rgl-basicmap') || {});
+      } catch (e) {
+        /*Ignore*/
+      }
+    }
+    console.log('ls', ls);
+    return ls[key];
+  }
+
+  saveToLS(key, value) {
+    if (global.localStorage) {
+      global.localStorage.setItem(
+        'rgl-basicmap',
+        JSON.stringify({
+          [key]: value
+        })
+      );
+    }
+    console.log('answer', this.getFromLS(key));
   }
 }
